@@ -19,7 +19,7 @@ width: 40px;
 vertical-align: middle;
 }
 
-#loader {
+.loader {
   border: 1px solid rgb(199, 199, 199);
   width: 66.66666%;
   height: 220px;
@@ -40,22 +40,33 @@ vertical-align: middle;
 
 .button1{
   position:absolute;
-  width: 110px;
-  margin-left: 35%;
-  top: 88%;
+  width: 20%;
+  height: 25px;
+  margin-left: 10%;
+  top: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .button2{
   position:absolute;
-  width: 140px;
-  margin-left: 54%;
-  top: 88%;
+  width: 20%;
+  height: 25px;
+  margin-left: 70%;
+  top: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+
 
 .overlap{
   position: absolute;
   margin-right: 1%;
   top:25%;
+  width: 100%;
 }
 
 textarea {
