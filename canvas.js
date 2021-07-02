@@ -3,6 +3,9 @@
 
 // http://bl.ocks.org/ludwigschubert/0a300d8a41d9e6b49144fff8b62637f8
 
+// scale canvas
+// https://jsfiddle.net/u5ogmh9a/
+
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 var scale, s1, s2;

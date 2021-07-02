@@ -13,8 +13,8 @@ body {
 
 input[type="color"].custom {
 padding: 0;
-border: 2px solid rgb(202, 202, 202);
-height: 15px;
+border: 1px solid rgb(135, 155, 170);
+height: 12px;
 width: 40px;
 vertical-align: middle;
 }
@@ -22,7 +22,7 @@ vertical-align: middle;
 #loader {
   border: 1px solid rgb(199, 199, 199);
   width: 66.66666%;
-  height: 180px;
+  height: 270px;
   margin: auto;
   float: left;
   position: relative;
@@ -39,10 +39,10 @@ vertical-align: middle;
 }
 
 .button{
-  width: 110px;
-  margin-left: 40%;
   position:absolute;
-  top:80%;
+  width: 110px;
+  margin-left: 45%;
+  top: 90%;
 }
 
 .overlap{
