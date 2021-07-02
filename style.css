@@ -39,22 +39,20 @@ vertical-align: middle;
 }
 
 .button1{
-  position:absolute;
   width: 20%;
   height: 25px;
-  margin-left: 10%;
-  top: 20%;
+  margin-top: 10px;
+  margin-left: 5%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .button2{
-  position:absolute;
   width: 20%;
   height: 25px;
-  margin-left: 70%;
-  top: 20%;
+  margin-top: 10px;
+  margin-left: 50%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
