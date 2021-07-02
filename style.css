@@ -14,7 +14,7 @@ body {
 input[type="color"].custom {
 padding: 0;
 border: 1px solid rgb(135, 155, 170);
-height: 12px;
+height: 16px;
 width: 40px;
 vertical-align: middle;
 }
@@ -22,15 +22,15 @@ vertical-align: middle;
 #loader {
   border: 1px solid rgb(199, 199, 199);
   width: 66.66666%;
-  height: 270px;
+  height: 220px;
   margin: auto;
   float: left;
   position: relative;
 }
 
 #control_panel {
-  margin-left: 67%;
-  padding: 2px; 
+  margin-left: 66.7%;
+  padding: 1px; 
   border: 1px solid rgb(201, 201, 201);
 }
 
@@ -38,15 +38,29 @@ vertical-align: middle;
   display: inline;
 }
 
-.button{
+.button1{
   position:absolute;
   width: 110px;
-  margin-left: 45%;
-  top: 90%;
+  margin-left: 35%;
+  top: 88%;
+}
+
+.button2{
+  position:absolute;
+  width: 140px;
+  margin-left: 54%;
+  top: 88%;
 }
 
 .overlap{
   position: absolute;
   margin-right: 1%;
   top:25%;
+}
+
+textarea {
+  width: 66.35%;
+  margin: auto;
+  float: left;
+  resize: none;
 }
