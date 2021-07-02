@@ -58,7 +58,9 @@ vertical-align: middle;
   white-space: nowrap;
 }
 
-
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
 
 .overlap{
   position: absolute;

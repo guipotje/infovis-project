@@ -193,7 +193,7 @@ window.addEventListener("load", () => {
     canvas.width = window.innerWidth * 0.666666;
     canvas.addEventListener("mousedown", draw);
     window.addEventListener('resize', resize_canvas);
-    document.getElementById('local_rd').click();
+    document.getElementById('url_rd').click();
     logger.reset();
     logger.log("To load sample data, just click the load button.");
     logger.log("To view the CSV specification so you can load your own matches, click the \"CSV Specs.\" button.");
