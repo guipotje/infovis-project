@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Match Viz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+ <body>
+
+    <div id = "div1">
+        <canvas id="canvas" width="500" height="500">
+            Your browser does not support canvas!
+        </canvas>
+
+        <div id="control_panel">
+            <div id="mouse_coords" class="inline">x&nbsp &nbsp &nbsp y</div>
+            <div id="cpwrapper1">
+                <label for="linec">Line color: </label>
+                <input type="color" value="#FF0000" id="linec" name="linec" class="custom">
+            </div>
+        </div>
+
+        <div id="loader">
+            <form>
+                
+                <input type="radio" id="url_rd" name="file_loc" onclick="check_radiobuttons(this)"/> Remote URL &nbsp;  &nbsp; &nbsp;
+                <input type="radio" id="local_rd" name="file_loc" onclick="check_radiobuttons(this)"/> Local File
+            </form> <br>
+            <table id="table_url" class="overlap">
+                <tr>
+                <td> Images file path: </td>
+                <td> <input id="f1" type="text" size="30" value="./test/cloud_master-rgb.png"/> </td>
+                <td> <input id="f2" type='text' size="30" value="./test/cloud_master-rgb.png"/> </td>
+                </tr>
+                <tr>
+                <td>Keypoints file path: </td>
+                <td> <input id="f3" type='text' size="30" value="./test/cloud_master-rgb.png"/> </td>
+                <td> <input id="f4" type='text' size="30" value="./test/cloud_master-rgb.png"/> </td>
+                </tr>
+                <tr>
+                <td>Distance matrix path: </td>
+                <td> <input id="f5" type='text' size="30" value="./test/cloud_master-rgb.png"/> </td>
+                <td>   </td>
+                </tr>                
+            </table>
+
+            <table id="table_local" class="overlap">
+                <tr>
+                <td> Images file path: </td>
+                <td> <input id="f1l" type='file'/></td>
+                <td> <input id="f2l" type='file'/></td>
+                </tr>
+                <tr>
+                <td>Keypoints file path: </td>
+                <td> <input id="f3l" type='file'/></td>
+                <td> <input id="f4l" type='file'/></td>
+                </tr>
+                <tr>
+                <td>Distance matrix path: </td>
+                <td> <input id="f5l" type='file'/></td>
+                </tr>                
+            </table>
+            <br>
+            <button class="button" onclick="load_data()"><i class="fa fa-refresh"></i> &nbsp; Load Data</button> 
+        </div>
+    </div>
+
+    <script src="canvas.js"></script>
+    <script src="papaparse.min.js"></script>
+</body>
+</html>

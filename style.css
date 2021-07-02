@@ -1,0 +1,52 @@
+body {
+    margin: 1px;
+    padding: 0;
+  }
+  
+#canvas 
+{
+    border: 1px solid rgb(201, 201, 201);
+    cursor: crosshair;
+    margin: auto;
+    float:left;
+}
+
+input[type="color"].custom {
+padding: 0;
+border: 2px solid rgb(202, 202, 202);
+height: 15px;
+width: 40px;
+vertical-align: middle;
+}
+
+#loader {
+  border: 1px solid rgb(199, 199, 199);
+  width: 66.66666%;
+  height: 180px;
+  margin: auto;
+  float: left;
+  position: relative;
+}
+
+#control_panel {
+  margin-left: 67%;
+  padding: 2px; 
+  border: 1px solid rgb(201, 201, 201);
+}
+
+.inline{
+  display: inline;
+}
+
+.button{
+  width: 110px;
+  margin-left: 40%;
+  position:absolute;
+  top:80%;
+}
+
+.overlap{
+  position: absolute;
+  margin-right: 1%;
+  top:25%;
+}
