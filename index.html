@@ -12,12 +12,14 @@
  <body>
 
     <div id = "div1">
-        <canvas id="canvas" width="500" height="500">
+        <canvas id="canvas">
             Your browser does not support canvas!
         </canvas>
+        <div id="svg_canvas" class="svg_canvas"> </div>
+        <div id="div_label"> </div>
 
         <div id="control_panel">
-            <div id="mouse_coords" class="inline">x&nbsp &nbsp &nbsp y</div>
+            <div id="mouse_coords" class="inline">x&nbsp; &nbsp; &nbsp; y</div>
             <div id="cpwrapper1">
                 <label for="linec">Line color: </label>
                 <input type="color" value="#FF0000" id="linec" name="linec" class="custom">
@@ -41,13 +43,13 @@
                 <tr> <td>&nbsp;</td> <td> &nbsp; </td> <td> &nbsp; </td> </tr>
                 <tr>
                 <td>Keypoints file path: </td>
-                <td> <input id="f3" type='text' style="width: 70%;"  value="./test/cloud_master-rgb.png"/> </td>
-                <td> <input id="f4" type='text' style="width: 70%;"  value="./test/cloud_master-rgb.png"/> </td>
+                <td> <input id="f3" type='text' style="width: 70%;"  value="https://raw.githubusercontent.com/verlab/GeobitNonrigidDescriptor_ICCV_2019/master/example/cloud_1.csv"/> </td>
+                <td> <input id="f4" type='text' style="width: 70%;"  value="https://raw.githubusercontent.com/verlab/GeobitNonrigidDescriptor_ICCV_2019/master/example/cloud_1.csv"/> </td>
                 </tr>
                 <tr> <td>&nbsp;</td> <td> &nbsp; </td> <td> &nbsp; </td> </tr>
                 <tr>
                 <td>Distance matrix path: &nbsp; &nbsp; &nbsp;</td>
-                <td> <input id="f5" type='text' style="width: 70%;"  value="./test/cloud_master-rgb.png"/> </td>
+                <td> <input id="f5" type='text' style="width: 70%;"  value="https://raw.githubusercontent.com/verlab/GeobitNonrigidDescriptor_ICCV_2019/master/example/cloud_1.csv"/> </td>
                 <td>   </td>
                 </tr>                
             </table>
@@ -81,7 +83,10 @@
 
     </div>
 
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="plots.js"></script>
     <script src="canvas.js"></script>
     <script src="papaparse.min.js"></script>
+
 </body>
 </html>

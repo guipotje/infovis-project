@@ -11,6 +11,35 @@ body {
     float:left;
 }
 
+.svg_canvas
+{
+  position: absolute;
+  margin-right: 1px;
+  top:1px;
+}
+
+.tooltip
+{
+  opacity: 0;
+  position: absolute;
+  background-color: rgb(31, 31, 31);
+  color: rgb(220, 114, 44);
+  font-family: 'Courier New', monospace;
+  border: solid;
+  border-width: 2px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+
+.myCircle:hover 
+{
+  stroke: rgb(0, 255, 8);
+  fill: rgb(255, 0, 0)
+  
+}
+
+
 input[type="color"].custom {
 padding: 0;
 border: 1px solid rgb(135, 155, 170);
@@ -20,17 +49,17 @@ vertical-align: middle;
 }
 
 .loader {
+  margin: auto;
+  float: left;
   border: 1px solid rgb(199, 199, 199);
   width: 66.66666%;
   height: 220px;
-  margin: auto;
-  float: left;
   position: relative;
 }
 
 #control_panel {
-  margin-left: 66.7%;
-  padding: 1px; 
+  width: 33.05%;
+  float: right;
   border: 1px solid rgb(201, 201, 201);
 }
 
