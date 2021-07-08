@@ -66,7 +66,7 @@ function updatecoords(e){
 }
 
 function resize_canvas(){
-    var max_width = document.body.clientWidth * 0.667;
+    var max_width = document.getElementById("div_loader").offsetWidth;
     canvas.width = max_width;
     svg_canvas.width = max_width;
     if(img_ref.width > 0 && img_tgt.width > 0)
@@ -268,6 +268,7 @@ function show_csv_info()
     logger.log("3 2");
     logger.log("1.0 1.2 0.7 0.3 0.5 1.0 ");
     logger.log('------------------------');
+    resize_canvas();
 }
 
 
