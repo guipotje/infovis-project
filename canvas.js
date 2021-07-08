@@ -92,7 +92,7 @@ function resize_canvas(){
             for(let i=0; i < data.kps_tgt.data.length ; i++){
                 data.kps_tgt.data[i].sx = data.kps_tgt.data[i].x / s2 + canvas.width / 2.0;
                 data.kps_tgt.data[i].sy = data.kps_tgt.data[i].y / s2; 
-            }   
+            }  
         }   
     }
 }
@@ -290,6 +290,8 @@ window.addEventListener("load", () => {
     logger.log("To load sample data, just click the load button.");
     logger.log("To view the CSV specification so you can load your own matches, click the \"CSV Specs.\" button.");
     logger.log("You can load from remote URL, e.g, a link from github or load from local files.");
+
+    //var sensor = new ResizeObserver(function(){resize_canvas();}).observe(document.getElementById('div_loader'));
     
 
     //document.getElementById("f1").addEventListener('change', (e) => { console.log( e.target.files[0] )}, false);

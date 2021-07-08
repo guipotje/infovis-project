@@ -202,8 +202,12 @@ function draw_keypoints()
 function draw()
 {
     resize_canvas();
-    draw_keypoints();
-    plot_histogram(data.dist_mat.mins);
+    
+    if (data.kps_ref != null && data.kps_tgt != null && data.dist_mat != null)
+    {
+      draw_keypoints();
+      plot_histogram(data.dist_mat.mins);
+    }
 }
 
 
