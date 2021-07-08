@@ -21,26 +21,24 @@
         <div id="control_panel">
             <!--
             <div id="mouse_coords" class="inline">x&nbsp; &nbsp; &nbsp; y</div>
-            -->
+            
             <div id="cpwrapper1">
                 <label for="linec">Line color: </label>
-                <input type="color" value="#FF0000" id="linec" name="linec" class="custom">
-                <div id="graph"></div>
-                    Histogram Bins:
-                        <input style="vertical-align: middle;" type="range" value="24" min="1" max="100" step="4" oninput="this.nextElementSibling.value = this.value"  id="nBin">
-                        <output>17</output>
-                    
+                <input type="color" value="#FF0000" id="linec" name="linec" class="custom">                  
+            </div>
+            -->
+            <div id="graph" style="font-family: 'Courier New', monospace;">
+                Histogram Bins:
+                    <input style="vertical-align: middle;" type="range" list="tickmarks" value="2" min="0" max="5"  id="nBin">
             </div>
 
         </div>
 
         <div class="loader">
-            <form>
-                
+           
                 <input type="radio" id="url_rd" name="file_loc" onclick="check_radiobuttons(this)"/> Remote URL &nbsp;  &nbsp; &nbsp;
                 <input type="radio" id="local_rd" name="file_loc" onclick="check_radiobuttons(this)"/> Local File 
-
-            </form> 
+                <button id="btnRefresh"class="button2" onclick="draw()"><i class="fa fa-refresh"></i> &nbsp; Refresh Visualization</button> 
             <br>
             <table id="table_url" class="overlap">
                 <tr>
@@ -83,8 +81,8 @@
             <br>
         </div>
         <div style="width: 66.66666%; height: 40px; float: left; margin: auto;">
-            <button class="button1" onclick="load_data()"><i class="fa fa-refresh"></i> &nbsp; Load Data</button> 
-            <button class="button2" onclick="show_csv_info()"><i class="fa fa-commenting-o"></i> &nbsp; CSV Specs.</button> 
+            <button id="btnLoad"class="button1" onclick="load_data()"><i class="fa fa-refresh"></i> &nbsp; Load Data</button> 
+            <button id="btnCSV" class="button2" onclick="show_csv_info()"><i class="fa fa-commenting-o"></i> &nbsp; CSV Specs.</button> 
         </div>
         
         <textarea id='logger' disabled></textarea>

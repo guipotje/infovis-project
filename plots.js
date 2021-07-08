@@ -143,13 +143,18 @@ function scatter(points, svg = null)
           .attr("r", 3);
       }
 
-      var keypoint_mouseclick = function(d){
-        pt = d3.select(this);
+      var keypoint_mouseclick = function(pt, rightclick = false){
+        d3.event.preventDefault();   
+ 
+        var color;
+        if(rightclick)
+          color = 'rgb(255, 0, 0)';
+        else
+          color = 'rgb(0, 255, 0)';
 
         line = svg.append('line')
-
         .style("stroke-width", "2.5px")
-        .style("stroke", document.getElementById("linec").value)
+        .style("stroke", color) //document.getElementById("linec").value)
         .attr("x1", pt.attr("cx"))
         .attr("y1", pt.attr("cy"))
         .attr("x2", pt.attr("cx"))
@@ -181,7 +186,8 @@ function scatter(points, svg = null)
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
-        .on("click", keypoint_mouseclick);
+        .on("click", function(d){pt = d3.select(this); keypoint_mouseclick(pt)})
+        .on("contextmenu",function(d){pt = d3.select(this); keypoint_mouseclick(pt, true)})
 
     return svg;
 }
@@ -228,7 +234,7 @@ function plot_histogram(dists){
 
   d3.select("#graph_svg").remove(); //clean old svg
     // set the dimensions and margins of the graph
-  var margin = {top: 10, right: 30, bottom: 30, left: 40},
+  var margin = {top: 40, right: 30, bottom: 30, left: 50},
   width = 460 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
@@ -244,11 +250,39 @@ function plot_histogram(dists){
 
   // X axis: scale and draw:
   var x = d3.scaleLinear()
-    .domain([data.dist_mat.min - 10, data.dist_mat.max + 10])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+    .domain([data.dist_mat.min - 0.05*data.dist_mat.min , data.dist_mat.max + 0.05 * data.dist_mat.max])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+    //.domain([0,100])
     .range([0, width]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
+
+    //Title
+    svg.append("text")
+    .attr("x", (width / 2))             
+    .attr("y", 0 - (margin.top / 2))
+    .attr("text-anchor", "middle")  
+    .style("font-size", "14px")  
+    .text("Histogram of NN distances");
+
+  // text label for the x axis
+  svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.bottom) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "12px")  
+      .text("Distances");
+
+      // text label for the y axis
+    svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")  
+    .text("Frequency");  
 
   // Y axis: initialization
   var y = d3.scaleLinear()
@@ -258,7 +292,7 @@ function plot_histogram(dists){
 
 
   // A function that builds the graph for a specific value of bin
-  function update(nBin) {
+  function update(nBins) {
 
   // Three function that change the tooltip when user hover / move / leave a cell
   var mouseover = function(d) {
@@ -274,9 +308,9 @@ function plot_histogram(dists){
     var x = d3.event.pageX //- document.getElementById("graph").getBoundingClientRect().x + 10
     var y = d3.event.pageY //-  document.getElementById("graph").getBoundingClientRect().y + 10
     Tooltip
-      .html("" + d.length)
-      .style("left", (x-10) + "px")
-      .style("top", (y-40) + "px")
+      .html("Frequency: " + d.length + "<br> Click to filter")
+      .style("left", (x-80) + "px")
+      .style("top", (y-55) + "px")
       .style("z-index","4");
 
   }
@@ -288,9 +322,9 @@ function plot_histogram(dists){
       .style("z-index","-1");
       
       d3.select(this)
-      .style("fill", "rgb(90, 0, 237)")
+      .style("fill", "rgb(40, 0, 200)")
       .style("stroke", "none")
-      .style("stroke-width", "none")
+      .style("stroke-width", "0px")
 
   }
 
@@ -299,10 +333,13 @@ function plot_histogram(dists){
   var histogram = d3.histogram()
       .value(function(d) { return d; })   // I need to give the vector of value
       .domain(x.domain())  // then the domain of the graphic
-      .thresholds(x.ticks(nBin)); // then the numbers of bins
+      .thresholds(x.ticks(nBins)); // then the numbers of bins
 
   // And apply this function to data to get the bins
   var bins = histogram(dists);
+  //console.log(x.ticks(nBins))
+  //console.log(nBins)
+
 
   // Y axis: update now that we know the domain
   y.domain([0, d3.max(bins, function(d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
@@ -329,7 +366,7 @@ function plot_histogram(dists){
         .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
         .attr("width", function(d) { return x(d.x1) - x(d.x0) -1 ; })
         .attr("height", function(d) { return height - y(d.length); })
-        .style("fill", "rgb(90, 0, 237)")
+        .style("fill", "rgb(40, 0, 200)")
 
 
   // If less bar in the new histogram, I delete the ones not in use anymore
@@ -339,12 +376,12 @@ function plot_histogram(dists){
 
   }
 
-  update(document.getElementById("nBin").value)
-
+  var binMap = [3, 8, 16, 32, 64, 96];
+  update(binMap[document.getElementById("nBin").value])
 
   // Listen to the button -> update if user change it
   d3.select("#nBin").on("input", function() {
-  update(+this.value);
+  update(binMap[this.value]);
   });
 
 

@@ -284,6 +284,7 @@ window.addEventListener("load", () => {
     canvas.addEventListener("mousedown", draw_click);
     window.addEventListener('resize', draw);
     document.getElementById('url_rd').click();
+    document.getElementById('btnLoad').click();
     logger.reset();
     logger.log("To load sample data, just click the load button.");
     logger.log("To view the CSV specification so you can load your own matches, click the \"CSV Specs.\" button.");
