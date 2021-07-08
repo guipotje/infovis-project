@@ -149,8 +149,9 @@ function scatter(points, svg = null)
         pt = d3.select(this);
 
         line = svg.append('line')
-        .style("stroke", "red")
-        .style("stroke-width", 2)
+
+        .style("stroke-width", "2.5px")
+        .style("stroke", document.getElementById("linec").value)
         .attr("x1", pt.attr("cx"))
         .attr("y1", pt.attr("cy"))
         .attr("x2", pt.attr("cx"))
