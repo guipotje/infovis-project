@@ -23,20 +23,21 @@ body {
   opacity: 0;
   position: absolute;
   background-color: rgb(31, 31, 31);
-  color: rgb(220, 114, 44);
+  color: rgb(245, 119, 36);
   font-family: 'Courier New', monospace;
   border: solid;
   border-width: 2px;
   border-radius: 5px;
   padding: 5px;
+  z-index: -1;
 }
 
 
 .myCircle:hover 
 {
-  stroke: rgb(0, 255, 8);
-  fill: rgb(255, 0, 0)
-  
+  stroke: rgb(187, 0, 0);
+  stroke-width: 3px;
+  fill: rgb(255, 255, 255);
 }
 
 

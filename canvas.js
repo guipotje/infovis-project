@@ -10,7 +10,6 @@
 // https://stackoverflow.com/questions/3420975/html5-canvas-zooming
 
 
-
 ////////////////////////////////// BEGIN GLOBAL DECLARATIONS //////////////////////////////////
 const canvas = document.getElementById("canvas");
 const svg_canvas = document.getElementById("svg_canvas");
@@ -82,6 +81,16 @@ function resize_canvas(){
         canvas.height = new_h;
         ctx.drawImage(img_ref, 0, 0, max_width*0.5-1, nh_ref);
         ctx.drawImage(img_tgt, max_width*0.5, 0, max_width*0.5+1, nh_tgt);
+
+        //update keypoint coordinates
+        for(let i=0; i < data.kps_ref.data.length ; i++){
+            data.kps_ref.data[i].sx = data.kps_ref.data[i].x / s1;
+            data.kps_ref.data[i].sy = data.kps_ref.data[i].y / s1; 
+        }
+        for(let i=0; i < data.kps_tgt.data.length ; i++){
+            data.kps_tgt.data[i].sx = data.kps_tgt.data[i].x / s2 + canvas.width / 2.0;
+            data.kps_tgt.data[i].sy = data.kps_tgt.data[i].y / s2; 
+        }      
     }
 }
 
@@ -104,9 +113,23 @@ function parse_dist_matrix()
     data.dist_mat.mat = mat_array;
     data.dist_mat.mins = mat_array.map(x => Math.min(... x));
     data.dist_mat.arg_mins = mat_array.map(x => x.indexOf(Math.min(... x)));
+    data.dist_mat.min = Math.min(... data.dist_mat.mins);
+    data.dist_mat.max = Math.max(... data.dist_mat.mins);
 
-    console.log(data.dist_mat.arg_mins);
+    //keypoint match confidences
+    for(let i=0; i < data.dist_mat.mins.length; i++){
+        data.kps_ref.data[i].confidence = data.dist_mat.mins[i];
+        data.kps_tgt.data[data.dist_mat.arg_mins[i]].confidence = data.dist_mat.mins[i];
+    }
     
+    var inv_argmins = new Array(data.dist_mat.arg_mins.length);
+    for(let i=0 ; i < inv_argmins.length; i++){
+        inv_argmins[data.dist_mat.arg_mins[i]] = i;
+    }
+    
+    data.dist_mat.inv_argmins = inv_argmins;
+    data.kps_ref.argmins = data.dist_mat.arg_mins;
+    data.kps_tgt.argmins = data.dist_mat.inv_argmins;
 }
 
 function parseCSV(csv, mode, key)
@@ -266,6 +289,6 @@ window.addEventListener("load", () => {
     //document.getElementById("f1").addEventListener('change', (e) => { console.log( e.target.files[0] )}, false);
      
     //img.src = 'https://raw.githubusercontent.com/verlab/GeobitNonrigidDescriptor_ICCV_2019/master/images/geobit_match_example.png';
-    canvas.addEventListener("mousemove", updatecoords);
+    //canvas.addEventListener("mousemove", updatecoords);
 
 });
