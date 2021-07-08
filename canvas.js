@@ -83,14 +83,17 @@ function resize_canvas(){
         ctx.drawImage(img_tgt, max_width*0.5, 0, max_width*0.5+1, nh_tgt);
 
         //update keypoint coordinates
-        for(let i=0; i < data.kps_ref.data.length ; i++){
-            data.kps_ref.data[i].sx = data.kps_ref.data[i].x / s1;
-            data.kps_ref.data[i].sy = data.kps_ref.data[i].y / s1; 
-        }
-        for(let i=0; i < data.kps_tgt.data.length ; i++){
-            data.kps_tgt.data[i].sx = data.kps_tgt.data[i].x / s2 + canvas.width / 2.0;
-            data.kps_tgt.data[i].sy = data.kps_tgt.data[i].y / s2; 
-        }      
+        if (data.kps_ref != null && data.kps_tgt != null && data.dist_mat != null)
+        {
+            for(let i=0; i < data.kps_ref.data.length ; i++){
+                data.kps_ref.data[i].sx = data.kps_ref.data[i].x / s1;
+                data.kps_ref.data[i].sy = data.kps_ref.data[i].y / s1; 
+            }
+            for(let i=0; i < data.kps_tgt.data.length ; i++){
+                data.kps_tgt.data[i].sx = data.kps_tgt.data[i].x / s2 + canvas.width / 2.0;
+                data.kps_tgt.data[i].sy = data.kps_tgt.data[i].y / s2; 
+            }   
+        }   
     }
 }
 
@@ -160,6 +163,7 @@ function parseCSV(csv, mode, key)
 function onDataLoaded(){
 
     parse_dist_matrix();
+    resize_canvas();
     draw();
 
 }
@@ -212,7 +216,6 @@ function load_data(){
             kps_tgt = parseCSV(path_dist_mat, "remote", "dist_mat");        
         }
 
-        resize_canvas();
         if (img_ref.src == null || img_tgt.src==null || path_kps_ref==null || path_kps_tgt == null || path_dist_mat == null)
         {
             throw "Invalid data! Please check the paths."
