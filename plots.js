@@ -235,8 +235,8 @@ function plot_histogram(dists){
   d3.select("#graph_svg").remove(); //clean old svg
     // set the dimensions and margins of the graph
   var margin = {top: 40, right: 30, bottom: 30, left: 50},
-  width = 460 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+  width = document.getElementById("control_panel").offsetWidth - margin.left - margin.right,
+  height = width - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3.select("#graph")
@@ -364,7 +364,7 @@ function plot_histogram(dists){
       .duration(1000)
         .attr("x", 1)
         .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-        .attr("width", function(d) { return x(d.x1) - x(d.x0) -1 ; })
+        .attr("width", function(d) { return x(d.x1) - x(d.x0) -2 ; })
         .attr("height", function(d) { return height - y(d.length); })
         .style("fill", "rgb(40, 0, 200)")
 

@@ -66,7 +66,7 @@ function updatecoords(e){
 }
 
 function resize_canvas(){
-    var max_width = document.body.clientWidth * 2/3.0;
+    var max_width = document.body.clientWidth * 0.667;
     canvas.width = max_width;
     svg_canvas.width = max_width;
     if(img_ref.width > 0 && img_tgt.width > 0)
@@ -277,8 +277,8 @@ function show_csv_info()
 window.addEventListener("load", () => {
 
     canvas.height = '1';
-    canvas.width = window.innerWidth * 0.666666;
-    svg_canvas.width = canvas.width = window.innerWidth * 0.666666; 
+    canvas.width = window.innerWidth * 0.66;
+    svg_canvas.width = canvas.width = window.innerWidth * 0.66; 
     svg_canvas.height=1;
 
     canvas.addEventListener("mousedown", draw_click);

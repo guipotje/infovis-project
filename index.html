@@ -30,6 +30,7 @@
             <div id="graph" style="font-family: 'Courier New', monospace;">
                 Histogram Bins:
                     <input style="vertical-align: middle;" type="range" list="tickmarks" value="2" min="0" max="5"  id="nBin">
+                    <button id="btnRefresh"class="button2" style="margin-left: 30%; width: 40%" onclick="draw()"><i class="fa fa-refresh"></i> &nbsp; Refresh Visualization</button> 
             </div>
 
         </div>
@@ -38,7 +39,7 @@
            
                 <input type="radio" id="url_rd" name="file_loc" onclick="check_radiobuttons(this)"/> Remote URL &nbsp;  &nbsp; &nbsp;
                 <input type="radio" id="local_rd" name="file_loc" onclick="check_radiobuttons(this)"/> Local File 
-                <button id="btnRefresh"class="button2" onclick="draw()"><i class="fa fa-refresh"></i> &nbsp; Refresh Visualization</button> 
+               
             <br>
             <table id="table_url" class="overlap">
                 <tr>

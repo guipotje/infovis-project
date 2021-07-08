@@ -62,13 +62,13 @@ vertical-align: middle;
   margin: auto;
   float: left;
   border: 1px solid rgb(199, 199, 199);
-  width: 66.66666%;
+  width: 66.5%;
   height: 220px;
   position: relative;
 }
 
 #control_panel {
-  width: 33.05%;
+  width: 32.5%;
   float: right;
   border: 1px solid rgb(201, 201, 201);
 }
@@ -109,7 +109,7 @@ tr:nth-child(odd) {
 }
 
 textarea {
-  width: 66.35%;
+  width: 66%;
   margin: auto;
   float: left;
   resize: none;
