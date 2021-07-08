@@ -25,6 +25,11 @@
             <div id="cpwrapper1">
                 <label for="linec">Line color: </label>
                 <input type="color" value="#FF0000" id="linec" name="linec" class="custom">
+                <div id="graph"></div>
+                    Histogram Bins:
+                        <input style="vertical-align: middle;" type="range" value="24" min="1" max="100" step="4" oninput="this.nextElementSibling.value = this.value"  id="nBin">
+                        <output>17</output>
+                    
             </div>
 
         </div>
@@ -86,7 +91,7 @@
 
     </div>
 
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="plots.js"></script>
     <script src="canvas.js"></script>
     <script src="papaparse.min.js"></script>

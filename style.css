@@ -22,22 +22,31 @@ body {
 {
   opacity: 0;
   position: absolute;
-  background-color: rgb(31, 31, 31);
-  color: rgb(245, 119, 36);
+
   font-family: 'Courier New';
-  border: solid;
-  border-width: 2px;
-  border-radius: 5px;
   padding: 5px;
   z-index: -1;
-}
+  transition: opacity 1s;
 
+  background-color: rgba(0, 0, 0, 0.645);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+}
 
 .myCircle:hover 
 {
   stroke: rgb(187, 0, 0);
   stroke-width: 3px;
   fill: rgb(255, 255, 255);
+}
+
+img.desaturate{
+  filter: gray; /* IE */
+  -webkit-filter: grayscale(1); /* Old WebKit */
+  -webkit-filter: grayscale(100%); /* New WebKit */
+  filter: url(resources.svg#desaturate); /* older Firefox */
+  filter: grayscale(100%); /* Current draft standard */
 }
 
 
