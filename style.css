@@ -39,6 +39,7 @@ body {
   stroke: rgb(187, 0, 0);
   stroke-width: 3px;
   fill: rgb(255, 255, 255);
+  cursor: crosshair;
 }
 
 img.desaturate{

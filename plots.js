@@ -124,10 +124,12 @@ function scatter(points, svg = null)
           .attr("r", 6);
       }
       var mousemove = function(d) {
+        var conf = d.confidence;
+        if(conf == null) conf = 0;
         Tooltip
-          .html("x: " + d.x.toString() + " y: " + d.y.toString() + " size: "+ d.size.toString() + " angle: "+ d.angle.toString())
-          .style("left", (d3.mouse(this)[0]+5) + "px")
-          .style("top", (d3.mouse(this)[1]-35) + "px")
+          .html("x: " + d.x.toString() + " y: " + d.y.toString() + "<br>" + "size: "+ d.size.toString() + " angle: "+ d.angle.toString() + "<br> closest NN: " + conf.toString())
+          .style("left", (d3.mouse(this)[0]+12) + "px")
+          .style("top", (d3.mouse(this)[1]+20) + "px")
           .style("z-index","4");
 
       }
@@ -202,7 +204,7 @@ function draw_keypoints()
 function draw()
 {
     resize_canvas();
-    
+
     if (data.kps_ref != null && data.kps_tgt != null && data.dist_mat != null)
     {
       draw_keypoints();
@@ -313,7 +315,7 @@ function plot_histogram(dists){
     var y = d3.event.pageY //-  document.getElementById("graph").getBoundingClientRect().y + 10
     Tooltip
       .html("Frequency: " + d.length + "<br> Click to filter")
-      .style("left", (x-80) + "px")
+      .style("left", (x-160) + "px")
       .style("top", (y-55) + "px")
       .style("z-index","4");
 
