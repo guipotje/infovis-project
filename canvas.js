@@ -126,7 +126,7 @@ function parse_dist_matrix()
     for(let i=0 ; i < inv_argmins.length; i++){
         inv_argmins[data.dist_mat.arg_mins[i]] = i;
     }
-    
+
     data.dist_mat.inv_argmins = inv_argmins;
     data.kps_ref.argmins = data.dist_mat.arg_mins;
     data.kps_tgt.argmins = data.dist_mat.inv_argmins;
@@ -208,7 +208,8 @@ function load_data(){
             
             //load csv files
             kps_ref = parseCSV(path_kps_ref, "remote", "kps_ref");
-            kps_tgt = parseCSV(path_kps_tgt, "remote", "kps_tgt");           
+            kps_tgt = parseCSV(path_kps_tgt, "remote", "kps_tgt");   
+            kps_tgt = parseCSV(path_dist_mat, "remote", "dist_mat");        
         }
 
         resize_canvas();
