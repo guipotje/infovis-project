@@ -44,14 +44,16 @@ function colorbar(svg)
       .attr("x", 10)             
       .attr("y", 18)
       .style("font-size", "14px")
+      .style("font-family", "Courier New")
       .attr("class", "legend")
       .style("fill", "white")   
       .text("weak match");
 
       svg.append("text")
-      .attr("x", 235)             
+      .attr("x", 230)             
       .attr("y", 18)
       .style("font-size", "14px")
+      .style("font-family", "Courier New")
       .attr("class", "legend")
       .style("fill", "black")   
       .text("strong match");

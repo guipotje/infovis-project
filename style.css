@@ -24,7 +24,7 @@ body {
   position: absolute;
   background-color: rgb(31, 31, 31);
   color: rgb(245, 119, 36);
-  font-family: 'Courier New', monospace;
+  font-family: 'Courier New';
   border: solid;
   border-width: 2px;
   border-radius: 5px;
