@@ -1,8 +1,19 @@
+function Turbo(t){ //turbo colormap
+  {
+    t = Math.max(0, Math.min(1, t));
+    t = t*(0.9 - 0.1)+ 0.1;
+    return "rgb("
+        + Math.max(0, Math.min(255, Math.round(34.61 + t * (1172.33 - t * (10793.56 - t * (33300.12 - t * (38394.49 - t * 14825.05))))))) + ", "
+        + Math.max(0, Math.min(255, Math.round(23.31 + t * (557.33 + t * (1225.33 - t * (3574.96 - t * (1073.77 + t * 707.56))))))) + ", "
+        + Math.max(0, Math.min(255, Math.round(27.2 + t * (3211.1 - t * (15327.97 - t * (27814 - t * (22569.18 - t * 6838.66)))))))
+        + ")";
+  }
+}
 
 function colorbar(svg)
 {
   var myColor = d3.scaleSequential()
-  .interpolator(d3.interpolatePlasma)
+  .interpolator(Turbo)
   .domain([0,1]);
 
       var grad = svg.append('defs')
@@ -92,8 +103,11 @@ function scatter(points, svg = null)
 
   // Build color scale
     var myColor = d3.scaleSequential()
-      .interpolator(d3.interpolatePlasma)
+      .interpolator(Turbo)
       .domain([data.dist_mat.max,data.dist_mat.min]);
+    // var myColor = d3.scaleLinear()
+    // .domain([data.dist_mat.max,data.dist_mat.min])
+    // .range(["blue", "green"]); 
 
     if(svg == null) 
     { 
@@ -118,10 +132,14 @@ function scatter(points, svg = null)
           .attr("r", 6);
       }
       var mousemove = function(d) {
-        var conf = d.confidence;
-        if(conf == null) conf = 0;
+        var nn = d.nn;
+        var nn2 = d.nn2;
+        var ratio = d.ratio;
+        if(nn == null) nn = 0, nn2 = 0, ratio=0;
         Tooltip
-          .html("x: " + d.x.toString() + " y: " + d.y.toString() + "<br>" + "size: "+ d.size.toString() + " angle: "+ d.angle.toString() + "<br> closest NN: " + conf.toString())
+          .html("x: " + d.x.toString() + "&nbsp; y: " + d.y.toString() +   //"<br>" + "size: "+ d.size.toString() + " angle: "+ d.angle.toString() + 
+                                                                    "<br> 1st-NN: " + nn.toString() + "&nbsp; 2nd-NN: " + nn2.toString()  +
+                                                                    "<br> NN-ratio: " + ratio.toFixed(2).toString() )
           .style("left", (d3.mouse(this)[0]+12) + "px")
           .style("top", (d3.mouse(this)[1]+20) + "px")
           .style("z-index","4");
@@ -150,7 +168,19 @@ function scatter(points, svg = null)
         color = pt.attr("fill");
 
         line = svg.append('line')
-        .style("stroke-width", "2.5px")
+        .style("stroke-width", "4px")
+        .style("stroke", 'black') //document.getElementById("linec").value)
+        .attr("x1", pt.attr("cx"))
+        .attr("y1", pt.attr("cy"))
+        .attr("x2", pt.attr("cx"))
+        .attr("y2", pt.attr("cy"))
+        .transition()
+        .duration(1000)
+        .attr("x2", pt.attr("cr_cx"))
+        .attr("y2", pt.attr("cr_cy"));
+
+        line = svg.append('line')
+        .style("stroke-width", "2px")
         .style("stroke", color) //document.getElementById("linec").value)
         .attr("x1", pt.attr("cx"))
         .attr("y1", pt.attr("cy"))
@@ -176,10 +206,10 @@ function scatter(points, svg = null)
         .attr("r", 3)
         //.attr("stroke", "rgb(127, 127, 127)")
         //.attr("stroke-width", 1.5)
-        .style("opacity", function(d){if(d.confidence) return 1; else return 0.3;})
+        .style("opacity", function(d){if(d.nn) return 1; else return 0.3;})
         .attr("cr_cx", function(d,i) { if(to.data[from.argmins[i]]) return to.data[from.argmins[i]].sx;  else return d.sx })
         .attr("cr_cy", function(d,i) { if(to.data[from.argmins[i]]) return to.data[from.argmins[i]].sy;  else return d.sy })
-        .attr("fill", function(d) { return myColor(d.confidence)} )
+        .attr("fill", function(d) { if(d.nn) return myColor(d.nn); else return 'rgb(0,0,0)' })
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)

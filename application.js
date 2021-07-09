@@ -109,14 +109,20 @@ function parse_dist_matrix()
     M = data.dist_mat.data[0][0];
     N =  data.dist_mat.data[0][1];
     mat_array = new Array(M);
+    mat_array2 = new Array(M);
 
     for(let i = 0; i < M; i++)
     {
         let row = new Array(N);
+        let row2 = new Array(N);
         for(let j = 0 ; j < N; j++)
+        {
             row[j] = dist_mat[i * N + j];
+            row2[j] = dist_mat[i * N + j];
+        }
 
         mat_array[i] = row;
+        mat_array2[i] = row2;
     }
 
     data.dist_mat.mat = mat_array;
@@ -125,10 +131,20 @@ function parse_dist_matrix()
     data.dist_mat.min = Math.min(... data.dist_mat.mins);
     data.dist_mat.max = Math.max(... data.dist_mat.mins);
 
-    //keypoint match confidences
+    for(let i=0; i < data.dist_mat.mins.length; i++)
+        mat_array2[i][data.dist_mat.arg_mins[i]] = 99999;
+    data.dist_mat.mins2 = mat_array2.map(x => Math.min(... x));    
+
+    //fill keypoint attributes
     for(let i=0; i < data.dist_mat.mins.length; i++){
-        data.kps_ref.data[i].confidence = data.dist_mat.mins[i];
-        data.kps_tgt.data[data.dist_mat.arg_mins[i]].confidence = data.dist_mat.mins[i];
+        data.kps_ref.data[i].nn = data.dist_mat.mins[i];
+        data.kps_ref.data[i].nn2 = data.dist_mat.mins2[i];
+        data.kps_ref.data[i].ratio = data.kps_ref.data[i].nn / data.kps_ref.data[i].nn2 ;
+        data.kps_tgt.data[data.dist_mat.arg_mins[i]].nn = data.dist_mat.mins[i];
+        data.kps_tgt.data[data.dist_mat.arg_mins[i]].nn2 = data.dist_mat.mins2[i];
+        data.kps_tgt.data[data.dist_mat.arg_mins[i]].ratio = data.kps_tgt.data[data.dist_mat.arg_mins[i]].nn /  data.kps_tgt.data[data.dist_mat.arg_mins[i]].nn2;
+
+
     }
     
     var inv_argmins = new Array(data.dist_mat.arg_mins.length);
