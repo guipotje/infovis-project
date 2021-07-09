@@ -51,6 +51,12 @@ img_ref.onload = function() {resize_canvas(); };
 img_tgt.onload = function() {resize_canvas(); };
 
 var logger = new myLogger();
+
+// create a tooltip
+var Tooltip = d3.select("#div_label")
+  .append("div")
+  .attr("class", "tooltip")
+
 ////////////////////////////////// END GLOBAL DECLARATIONS //////////////////////////////////
 
 
@@ -271,6 +277,17 @@ function show_csv_info()
     resize_canvas();
 }
 
+function draw() //function that manages all plots
+{
+    resize_canvas();
+
+    if (data.kps_ref != null && data.kps_tgt != null && data.dist_mat != null)
+    {
+      draw_keypoints();
+      plot_histogram(data.dist_mat.mins);
+      correlation_graph();
+    }
+}
 
 //document.getElementById('text1').style.visibility='hidden';
 
@@ -282,7 +299,7 @@ window.addEventListener("load", () => {
     svg_canvas.width = canvas.width = window.innerWidth * 0.66; 
     svg_canvas.height=1;
 
-    canvas.addEventListener("mousedown", draw_click);
+    //canvas.addEventListener("mousedown", draw_click);
     window.addEventListener('resize', draw);
     document.getElementById('url_rd').click();
     document.getElementById('btnLoad').click();
