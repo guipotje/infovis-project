@@ -1,7 +1,7 @@
 function Turbo(t){ //turbo colormap
   {
     t = Math.max(0, Math.min(1, t));
-    t = t*(0.9 - 0.1)+ 0.1;
+    t = t*(0.97 - 0.03)+ 0.03;
     return "rgb("
         + Math.max(0, Math.min(255, Math.round(34.61 + t * (1172.33 - t * (10793.56 - t * (33300.12 - t * (38394.49 - t * 14825.05))))))) + ", "
         + Math.max(0, Math.min(255, Math.round(23.31 + t * (557.33 + t * (1225.33 - t * (3574.96 - t * (1073.77 + t * 707.56))))))) + ", "
@@ -43,7 +43,7 @@ function colorbar(svg)
       
       svg.append('rect')
         .attr('x', 5)
-        .attr('y', 5)
+        .attr('y', 2)
         .attr('width', 330)
         .attr('height', 16)
         .style('fill', 'url(#grad)');
@@ -52,7 +52,7 @@ function colorbar(svg)
 
       svg.append("text")
       .attr("x", 10)             
-      .attr("y", 17)
+      .attr("y", 14)
       .style("font-size", "14px")
       .style("font-family", "Courier New")
       .attr("class", "legend")
@@ -61,7 +61,7 @@ function colorbar(svg)
 
       svg.append("text")
       .attr("x", 230)             
-      .attr("y", 17)
+      .attr("y", 14)
       .style("font-size", "14px")
       .style("font-family", "Courier New")
       .attr("class", "legend")

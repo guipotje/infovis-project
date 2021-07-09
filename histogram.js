@@ -23,7 +23,7 @@ function plot_histogram(dists){
       .range([0, width]);
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x).ticks(7));
   
       //Title
       svg.append("text")

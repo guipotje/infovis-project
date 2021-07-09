@@ -301,8 +301,20 @@ function draw() //function that manages all plots
     {
       draw_keypoints();
       plot_histogram(data.dist_mat.mins);
-      correlation_graph();
+      correlation_graph(data.kps_ref.data);
     }
+}
+
+function show_hide_kps(e){
+
+    if(e.checked){
+        d3.selectAll("circle[cr_cx]")
+   	        .style("visibility", "hidden");
+    }
+    else{
+        d3.selectAll("circle[cr_cx]")
+            .style("visibility", "visible");       
+    } 
 }
 
 //document.getElementById('text1').style.visibility='hidden';
@@ -311,14 +323,15 @@ function draw() //function that manages all plots
 window.addEventListener("load", () => {
 
     canvas.height = '1';
-    canvas.width = window.innerWidth * 0.66;
-    svg_canvas.width = canvas.width = window.innerWidth * 0.66; 
+    canvas.width = window.innerWidth * 0.6661;
+    svg_canvas.width = canvas.width = window.innerWidth * 0.6661; 
     svg_canvas.height=1;
 
     //canvas.addEventListener("mousedown", draw_click);
     window.addEventListener('resize', draw);
     document.getElementById('url_rd').click();
     document.getElementById('btnLoad').click();
+    document.getElementById('hideKps').checked = false;
     logger.reset();
     logger.log("To load sample data, just click the load button.");
     logger.log("To view the CSV specification so you can load your own matches, click the \"CSV Specs.\" button.");

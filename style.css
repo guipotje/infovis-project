@@ -34,6 +34,16 @@ body {
   border-radius: 6px;
 }
 
+#div_hideKps{
+  position: absolute; 
+  margin-left: 350px; 
+  margin-top:1px; 
+  width: 160px;
+  background-color: rgba(255,255,255,0.6);
+  text-align: center;
+  border-radius: 6px;
+}
+
 .myCircle:hover 
 {
   stroke: rgb(187, 0, 0);
