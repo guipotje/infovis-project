@@ -106,7 +106,7 @@ function scatter(points, svg = null)
               "translate(" + 1 + "," + 1 + ")");
     }
 
-    colorbar(svg, myColor); //draw colorbar
+      colorbar(svg); //draw colorbar
 
       // Three function that change the tooltip when user hover / move / leave a cell
       var mouseover = function(d) {
@@ -143,10 +143,11 @@ function scatter(points, svg = null)
         d3.event.preventDefault();   
  
         var color;
-        if(rightclick)
-          color = 'rgb(255, 0, 0)';
-        else
-          color = 'rgb(0, 255, 0)';
+        // if(rightclick)
+        //   color = 'rgb(255, 0, 0)';
+        // else
+        //   color = 'rgb(0, 255, 0)';
+        color = pt.attr("fill");
 
         line = svg.append('line')
         .style("stroke-width", "2.5px")
@@ -191,8 +192,8 @@ function scatter(points, svg = null)
 
 function draw_keypoints()
 {
-  svg = scatter(data.kps_ref.data);
-  scatter(data.kps_tgt.data, svg);
+  svg = scatter(data.kps_ref.data); //left image
+  scatter(data.kps_tgt.data, svg); // right image
 }
 
 /*
