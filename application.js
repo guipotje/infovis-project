@@ -296,6 +296,7 @@ function show_csv_info()
 function draw() //function that manages all plots
 {
     resize_canvas();
+    document.getElementById('hideKps').checked = false;
 
     if (data.kps_ref != null && data.kps_tgt != null && data.dist_mat != null)
     {
