@@ -129,7 +129,10 @@ function scatter(points, svg = null)
 
           d3.select(this).transition()
           .duration('100')
-          .attr("r", 6);
+          .attr("r", 6)
+          //.attr("fill", "white")
+          //.style("stroke", "red")
+          //.style("stroke-width", "2px")
       }
       var mousemove = function(d) {
         var nn = d.nn;
@@ -138,7 +141,7 @@ function scatter(points, svg = null)
         if(nn == null) nn = 0, nn2 = 0, ratio=0;
         Tooltip
           .html("x: " + d.x.toString() + "&nbsp; y: " + d.y.toString() +   //"<br>" + "size: "+ d.size.toString() + " angle: "+ d.angle.toString() + 
-                                                                    "<br> 1st-NN: " + nn.toString() + "&nbsp; 2nd-NN: " + nn2.toString()  +
+                                                                    "<br> 1st-NN: " + nn.toFixed(2).toString() + "&nbsp; 2nd-NN: " + nn2.toFixed(2).toString()  +
                                                                     "<br> NN-ratio: " + ratio.toFixed(2).toString() )
           .style("left", (d3.mouse(this)[0]+12) + "px")
           .style("top", (d3.mouse(this)[1]+20) + "px")

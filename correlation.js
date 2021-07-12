@@ -6,7 +6,7 @@
     // set the dimensions and margins of the graph
   var margin = {top: 40, right: 30, bottom: 30, left: 70},
   width = document.getElementById("control_panel").offsetWidth*0.7 - margin.left - margin.right,
-  height = width - margin.top - margin.bottom + margin.left;
+  height = (width+50) - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#correlation")
@@ -46,6 +46,44 @@
     .range([ height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
+ 
+  // Three function that change the tooltip when user hover / move / leave a cell
+  var mouseover = function(d) {
+    Tooltip
+      .style("opacity", 1)
+      
+
+      d3.select(this).transition()
+      .duration('100')
+      .attr("r", 5)
+  }
+  var mousemove = function(d) {
+    var nn = d.nn;
+    var nn2 = d.nn2;
+    var ratio = d.ratio;
+    var x = d3.event.pageX 
+    var y = d3.event.pageY
+    if(nn == null) nn = 0, nn2 = 0, ratio=0;
+    Tooltip
+      .html(
+            "NN: " + nn.toFixed(2).toString() + "&nbsp; 2nd-NN: " + nn2.toFixed(2).toString()  +
+            "<br> NN-ratio: " + ratio.toFixed(2).toString() )
+      .style("left", (x-250) + "px")
+      .style("top", (y-60) + "px")
+      .style("z-index","4");
+
+  }
+  var mouseleave = function(d) {
+    Tooltip
+      .style("opacity", 0)
+      .style("top","2px")
+      .style("left", "2px")
+      .style("z-index","-1");
+
+      d3.select(this).transition()
+      .duration('200')
+      .attr("r", 2)
+  }
 
   // Add dots
   svg.append('g')
@@ -53,10 +91,13 @@
     .data(points)
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return x(d.nn); } )
-      .attr("cy", function (d) { return y(d.ratio); } )
-      .attr("r", 2)
-      .style("fill", "rgb(185, 0, 0)")
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
+    .attr("cx", function (d) { return x(d.nn); } )
+    .attr("cy", function (d) { return y(d.ratio); } )
+    .attr("r", 2)
+    .attr("fill", "rgb(185, 0, 0)")
 
   // new X axis
   x.domain([x_min, x_max])
@@ -66,7 +107,9 @@
     .attr("opacity", "1")
     .call(d3.axisBottom(x).ticks(7))
 
+
   svg.selectAll("circle")
+    .attr("class", "myCircle")
     .transition()
     .delay(function(d,i){return(i*0.6)})
     .duration(800)
