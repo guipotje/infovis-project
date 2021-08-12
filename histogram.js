@@ -96,6 +96,21 @@ function plot_histogram(dists){
   
     }
   
+    var histogram_filter = function(d){
+      var min_v = d3.min(d)
+      var max_v = d3.max(d)
+
+      //console.log(d, min_v, max_v)
+      d3.selectAll("circle")
+      .style("visibility", "visible");
+
+      d3.selectAll(".c_scatter")
+      .filter(function(c) {
+        return c.nn < min_v || c.nn > max_v;
+      })
+      .style("visibility", "hidden");
+
+    }
   
     // set the parameters for the histogram
     var histogram = d3.histogram()
@@ -128,6 +143,7 @@ function plot_histogram(dists){
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
+        .on("click", histogram_filter)
         .transition() // and apply changes to all of them
         .duration(1000)
           .attr("x", 1)

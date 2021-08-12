@@ -108,8 +108,8 @@
     .call(d3.axisBottom(x).ticks(7))
 
 
-  svg.selectAll("circle")
-    .attr("class", "myCircle")
+  circle = svg.selectAll("circle")
+    .attr("class", "c_correlation")
     .transition()
     .delay(function(d,i){return(i*0.6)})
     .duration(800)
@@ -142,5 +142,39 @@
       .style("text-anchor", "middle")
       .style("font-size", "12px")  
       .text("NN-ratio");  
+
+
+  // Add brushing
+  const brush = d3.brush()                     // Add the brush feature using the d3.brush function
+  .extent( [ [0,0], [width,height+3] ] )
+  .on("start brush", brushed);       // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+  
+
+  svg.append("g")
+  .attr("class", "brush")
+  .call(brush)
+  .call(g => g.select(".overlay"))
+  //.datum({type: "selection"})
+
+
+  function brushed() 
+  {
+    selection = d3.event.selection;
+
+      d3.selectAll(".c_scatter")
+      .style("visibility", "hidden")
+
+       const [[x0, y0], [x1, y1]] = selection;
+       d3.selectAll(".c_scatter")
+       .filter(function(d) {
+        return x(d.nn) > x0  && x(d.nn) < x1 &&
+               y(d.ratio) > y0 && y(d.ratio) < y1;
+      })
+      .style("visibility","visible")
+
+
+       
+  }
+
 
  }

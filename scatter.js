@@ -203,7 +203,7 @@ function scatter(points, svg = null)
       .data(points)
       .enter()
       .append("circle")
-        .attr("class", "myCircle")
+        .attr("class", "c_scatter")
         .attr("cx", function(d) { return d.sx} )
         .attr("cy", function(d) { return d.sy} )
         .attr("r", 3)
@@ -213,13 +213,15 @@ function scatter(points, svg = null)
         .attr("cr_cx", function(d,i) { if(to.data[from.argmins[i]]) return to.data[from.argmins[i]].sx;  else return d.sx })
         .attr("cr_cy", function(d,i) { if(to.data[from.argmins[i]]) return to.data[from.argmins[i]].sy;  else return d.sy })
         .attr("fill", function(d) { if(d.nn) return myColor(d.nn); else return 'rgb(0,0,0)' })
+        .attr("nn", function(d){return d.nn;})
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
         .on("click", function(d){pt = d3.select(this); keypoint_mouseclick(pt)})
         .on("contextmenu",function(d){pt = d3.select(this); keypoint_mouseclick(pt, true)})
 
-    return svg;
+
+        return svg;
 }
 
 
