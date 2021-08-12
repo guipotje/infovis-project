@@ -85,6 +85,20 @@
       .attr("r", 2)
   }
 
+    // Add brushing
+    const brush = d3.brush()                     // Add the brush feature using the d3.brush function
+    .extent( [ [0,0], [width,height+3] ] )
+    .on("start brush", brushed)       // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+    //.on("brushend", () => {d3.selectAll(".c_scatter").style("visibility","visible")});
+  
+  
+    svg.append("g")
+    .attr("class", "brush")
+    .call(brush)
+    //.call(g => g.select(".overlay"))
+    //.datum({type: "selection"})
+    
+
   // Add dots
   svg.append('g')
     .selectAll("dot")
@@ -144,33 +158,30 @@
       .text("NN-ratio");  
 
 
-  // Add brushing
-  const brush = d3.brush()                     // Add the brush feature using the d3.brush function
-  .extent( [ [0,0], [width,height+3] ] )
-  .on("start brush", brushed);       // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
-  
-
-  svg.append("g")
-  .attr("class", "brush")
-  .call(brush)
-  .call(g => g.select(".overlay"))
-  //.datum({type: "selection"})
-
 
   function brushed() 
   {
     selection = d3.event.selection;
+    const [[x0, y0], [x1, y1]] = selection;
+    console.log(x0, y0)
 
+    if(x0===x1)
+    {
       d3.selectAll(".c_scatter")
-      .style("visibility", "hidden")
+      .style("visibility", "visible")
+    }
 
-       const [[x0, y0], [x1, y1]] = selection;
-       d3.selectAll(".c_scatter")
-       .filter(function(d) {
+    else{
+        d3.selectAll(".c_scatter")
+        .style("visibility", "hidden")
+
+        d3.selectAll(".c_scatter")
+        .filter(function(d) {
         return x(d.nn) > x0  && x(d.nn) < x1 &&
-               y(d.ratio) > y0 && y(d.ratio) < y1;
+                y(d.ratio) > y0 && y(d.ratio) < y1;
       })
       .style("visibility","visible")
+    }
 
 
        

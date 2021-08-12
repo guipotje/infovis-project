@@ -44,7 +44,15 @@ body {
   border-radius: 6px;
 }
 
-.myCircle:hover 
+.c_scatter:hover 
+{
+  stroke: rgb(187, 0, 0);
+  stroke-width: 3px;
+  fill: rgb(255, 255, 255);
+  cursor: crosshair;
+}
+
+.c_correlation:hover 
 {
   stroke: rgb(187, 0, 0);
   stroke-width: 3px;
