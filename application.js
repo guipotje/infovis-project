@@ -381,10 +381,10 @@ function toolbox_attention(){
     var x = d3.event.pageX //- document.getElementById("graph").getBoundingClientRect().x + 10
     var y = d3.event.pageY //-  document.getElementById("graph").getBoundingClientRect().y + 10
     Tooltip
-      .html(" <h3> Keypoint Attention: </h3>"
+      .html(" <center> <h3> Keypoint Attention: </h3> </center>" 
             + " <br> " + "If you enable attention, keypoints will "
-            + " <br> " + "match all others in the other image, how- "
-            + " <br> " + "ever, similarity will be encoded by alpha "
+            + " <br> " + "match all others in the other image, and "
+            + " <br> " + "the similarity will be encoded by alpha "
             + " <br> " + "values, i.e., most similar keypoints will "
             + " <br> " + "have stronger edges, and less similar ones"
             + " <br> " + "will fade away. The user can control the "
