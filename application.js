@@ -377,6 +377,38 @@ function update_sample(v)
     document.getElementById('btnLoad').click();
 }
 
+function toolbox_attention(){
+    var x = d3.event.pageX //- document.getElementById("graph").getBoundingClientRect().x + 10
+    var y = d3.event.pageY //-  document.getElementById("graph").getBoundingClientRect().y + 10
+    Tooltip
+      .html(" <h3> Keypoint Attention: </h3>"
+            + " <br> " + "If you enable attention, keypoints will "
+            + " <br> " + "match all others in the other image, how- "
+            + " <br> " + "ever, similarity will be encoded by alpha "
+            + " <br> " + "values, i.e., most similar keypoints will "
+            + " <br> " + "have stronger edges, and less similar ones"
+            + " <br> " + "will fade away. The user can control the "
+            + " <br> " + "alpha decay by sliding the controller on the"
+            + " <br> " + "right. The decay is implemented by increas- "
+            + " <br> " + "ing the exponent of the decay function.")
+      .style("left", (x+15) + "px")
+      .style("top", (y+15) + "px")
+      .style("z-index","4");
+}
+
+function attention_mouseover(){
+    Tooltip
+    .style("opacity", 1);
+}
+
+function attention_mouseleave(){
+    Tooltip
+    .style("opacity", 0)
+    .style("top","2px")
+    .style("left", "2px")
+    .style("z-index","-1")
+}
+
 //document.getElementById('text1').style.visibility='hidden';
 
 // Main code
@@ -398,6 +430,11 @@ window.addEventListener("load", () => {
     d3.select("#attRange").on("input", function() {
         update_alpha();
     });
+
+    d3.select("#attMap")
+        .on("mousemove", toolbox_attention)
+        .on("mouseover", attention_mouseover)
+        .on("mouseleave", attention_mouseleave)
 
     logger.reset();
     logger.log("To load sample data, just click the load button.");
