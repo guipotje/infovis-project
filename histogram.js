@@ -112,6 +112,9 @@ function plot_histogram(dists){
 
         d3.selectAll(".brush").call(brush.move, null);
 
+        d3.selectAll(".c_correlation")
+        .style("fill", "rgb(185, 0, 0)")
+
         d3.select(this)
         .style("fill", "orange")
         .style("stroke", "black")
