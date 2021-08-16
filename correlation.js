@@ -1,5 +1,6 @@
  
- 
+ var brush;
+
  function correlation_graph(points){
  
  d3.select("#graph_correlation").remove(); //clean old svg
@@ -86,10 +87,11 @@
   }
 
     // Add brushing
-    const brush = d3.brush()                     // Add the brush feature using the d3.brush function
+     brush = d3.brush()                     // Add the brush feature using the d3.brush function
     .extent( [ [0,0], [width,height+3] ] )
     .on("start brush", brushed)       // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
     //.on("brushend", () => {d3.selectAll(".c_scatter").style("visibility","visible")});
+
   
   
     svg.append("g")
@@ -162,8 +164,23 @@
   function brushed() 
   {
     selection = d3.event.selection;
+
+    if(selection == null)
+    {
+      d3.selectAll(".c_scatter")
+      .style("visibility", "visible")
+      return;
+    }
+
+
     const [[x0, y0], [x1, y1]] = selection;
-    console.log(x0, y0)
+    //console.log(x0, y0)
+
+    d3.selectAll(".hist_rect")
+        .style("fill", "rgb(40, 0, 200)")
+        .style("stroke", "none")
+        .style("stroke-width", "0px")
+        .attr("clicked", "false")
 
     if(x0===x1)
     {

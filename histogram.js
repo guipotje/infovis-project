@@ -67,10 +67,13 @@ function plot_histogram(dists){
       Tooltip
         .style("opacity", 1);
   
+      if(d3.select(this).attr("clicked")=="false")
+      {
         d3.select(this)
         .style("fill", "dimgray")
         .style("stroke", "black")
         .style("stroke-width", "2px")
+      }
     }
     var mousemove = function(d) {
       var x = d3.event.pageX //- document.getElementById("graph").getBoundingClientRect().x + 10
@@ -89,14 +92,32 @@ function plot_histogram(dists){
         .style("left", "2px")
         .style("z-index","-1");
         
-        d3.select(this)
-        .style("fill", "rgb(40, 0, 200)")
-        .style("stroke", "none")
-        .style("stroke-width", "0px")
+        if(d3.select(this).attr("clicked")=="false")
+        {
+          d3.select(this)
+          .style("fill", "rgb(40, 0, 200)")
+          .style("stroke", "none")
+          .style("stroke-width", "0px")
+        }
   
     }
   
     var histogram_filter = function(d){
+
+        d3.selectAll(".hist_rect")
+            .style("fill", "rgb(40, 0, 200)")
+            .style("stroke", "none")
+            .style("stroke-width", "0px")
+            .attr("clicked", "false")
+
+        d3.selectAll(".brush").call(brush.move, null);
+
+        d3.select(this)
+        .style("fill", "gold")
+        .style("stroke", "black")
+        .style("stroke-width", "2px")
+        .attr("clicked", "true")
+
       var min_v = d3.min(d)
       var max_v = d3.max(d)
 
@@ -139,6 +160,7 @@ function plot_histogram(dists){
     u
         .enter()
         .append("rect") // Add a new rect for each new elements
+        .attr("class", "hist_rect")
         .merge(u) // get the already existing elements as well
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
@@ -150,6 +172,7 @@ function plot_histogram(dists){
           .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
           .attr("width", function(d) { return x(d.x1) - x(d.x0) -2 ; })
           .attr("height", function(d) { return height - y(d.length); })
+          .attr("clicked", "false")
           .style("fill", "rgb(40, 0, 200)")
   
   

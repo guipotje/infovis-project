@@ -76,6 +76,7 @@ function scatter(points, svg = null)
   var offset = 0;
   var from, to;
 
+
     if(svg == null){
       d3.select("svg").remove(); //clean old svg
       width = img_ref.width;
@@ -108,6 +109,7 @@ function scatter(points, svg = null)
     // var myColor = d3.scaleLinear()
     // .domain([data.dist_mat.max,data.dist_mat.min])
     // .range(["blue", "green"]); 
+    var is_ref_img = (svg == null) ? true : false;
 
     if(svg == null) 
     { 
@@ -119,6 +121,7 @@ function scatter(points, svg = null)
         .attr("transform",
               "translate(" + 1 + "," + 1 + ")");
     }
+
 
       colorbar(svg); //draw colorbar
 
@@ -160,43 +163,99 @@ function scatter(points, svg = null)
           .attr("r", 3);
       }
 
-      var keypoint_mouseclick = function(pt, rightclick = false){
+      function plot_line(x1,y1,x2,y2, color, alpha = 1, val=0){
+          line = svg.append('line')
+          .style("stroke-width", "4px")
+          .style("stroke", 'rgba(0,0,0,' + alpha.toString() + ')') //document.getElementById("linec").value)
+          .style("pointer-events", "none")
+          .attr("x1", x1)
+          .attr("y1", y1)
+          .attr("x2", x1)
+          .attr("y2", y1)
+          .transition()
+          .duration(1000)
+          .attr("x2", x2)
+          .attr("y2", y2)
+          .attr('val', val)
+          .attr('rgba','rgba(0,0,0,')
+
+          let rgba = color.replace(')', ", ").replace("rgb","rgba")
+          color = color.replace(')', ", " + alpha.toString()+")").replace("rgb","rgba")
+          //console.log(color)
+          line = svg.append('line')
+          .style("stroke-width", "2px")
+          .style("stroke", color ) //document.getElementById("linec").value)
+          .style("pointer-events", "none")
+          .attr("x1", x1)
+          .attr("y1", y1)
+          .attr("x2", x1)
+          .attr("y2", y1)
+          .transition()
+          .duration(1000)
+          .attr("x2", x2)
+          .attr("y2", y2)
+          .attr("val", val)  
+          .attr("rgba", rgba)
+      }
+
+
+      var keypoint_mouseclick = function(pt, d, idx, rightclick = false){
         d3.event.preventDefault();   
- 
-        var color;
-        // if(rightclick)
-        //   color = 'rgb(255, 0, 0)';
-        // else
-        //   color = 'rgb(0, 255, 0)';
-        color = pt.attr("fill");
+        let color = pt.attr("fill");
 
-        line = svg.append('line')
-        .style("stroke-width", "4px")
-        .style("stroke", 'black') //document.getElementById("linec").value)
-        .attr("x1", pt.attr("cx"))
-        .attr("y1", pt.attr("cy"))
-        .attr("x2", pt.attr("cx"))
-        .attr("y2", pt.attr("cy"))
-        .transition()
-        .duration(1000)
-        .attr("x2", pt.attr("cr_cx"))
-        .attr("y2", pt.attr("cr_cy"));
+        if(document.getElementById('attMap').checked)
+        {
+          d3.selectAll("line").remove();
+          //get distance matrix row
+          let M = data.dist_mat.mat.length;
+          let N = data.dist_mat.mat[0].length
+          let w = document.getElementById('attRange').value
 
-        line = svg.append('line')
-        .style("stroke-width", "2px")
-        .style("stroke", color) //document.getElementById("linec").value)
-        .attr("x1", pt.attr("cx"))
-        .attr("y1", pt.attr("cy"))
-        .attr("x2", pt.attr("cx"))
-        .attr("y2", pt.attr("cy"))
-        .transition()
-        .duration(1000)
-        .attr("x2", pt.attr("cr_cx"))
-        .attr("y2", pt.attr("cr_cy"));
+          if(pt.attr('is_ref_img')=== 'true')
+          {
+            let dists = new Array(N)
+            for(let i=0; i < N; i++)
+              dists[i] = data.dist_mat.mat[idx][i]; 
+            let min = d3.min(dists);
+            let max = d3.max(dists);
+            let norm_dists = dists.map(x => 1. - (x-min)/(max - min));
+
+            for(let i=0; i < N; i++)
+            {
+              let dist = norm_dists[i]
+              let alpha = Math.exp(w * dist) / Math.exp(w);
+              plot_line(pt.attr("cx"), pt.attr("cy"), data.kps_tgt.data[i].sx, data.kps_tgt.data[i].sy, color, alpha, dist)
+            }
+          }
+          else
+          { 
+            let dists = new Array(M);
+            for(let i=0; i < M; i++)
+              dists[i] = data.dist_mat.mat[i][idx];    
+            let min = d3.min(dists);
+            let max = d3.max(dists);
+            let norm_dists = dists.map(x => 1. - (x-min)/(max - min));
+            for(let i=0; i < M; i++)
+            {
+              let dist = norm_dists[i]
+              let alpha = Math.exp(w * dist) / Math.exp(w);
+              plot_line(pt.attr("cx"), pt.attr("cy"), data.kps_ref.data[i].sx, data.kps_ref.data[i].sy, color, alpha, dist)
+
+            }
+          }
+
+          d3.selectAll("circle").raise();
+        }
+        else
+        {
+          plot_line(pt.attr("cx"), pt.attr("cy"), pt.attr("cr_cx"), pt.attr("cr_cy"), color)
+        }
               
       }
 
     // Add the points
+
+ 
     svg
       .append("g")
       .selectAll("dot")
@@ -207,18 +266,17 @@ function scatter(points, svg = null)
         .attr("cx", function(d) { return d.sx} )
         .attr("cy", function(d) { return d.sy} )
         .attr("r", 3)
-        //.attr("stroke", "rgb(127, 127, 127)")
-        //.attr("stroke-width", 1.5)
         .style("opacity", function(d){if(d.nn) return 1; else return 0.3;})
         .attr("cr_cx", function(d,i) { if(to.data[from.argmins[i]]) return to.data[from.argmins[i]].sx;  else return d.sx })
         .attr("cr_cy", function(d,i) { if(to.data[from.argmins[i]]) return to.data[from.argmins[i]].sy;  else return d.sy })
         .attr("fill", function(d) { if(d.nn) return myColor(d.nn); else return 'rgb(0,0,0)' })
         .attr("nn", function(d){return d.nn;})
+        .attr("is_ref_img", is_ref_img)
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
-        .on("click", function(d){pt = d3.select(this); keypoint_mouseclick(pt)})
-        .on("contextmenu",function(d){pt = d3.select(this); keypoint_mouseclick(pt, true)})
+        .on("click", function(d,i){pt = d3.select(this); keypoint_mouseclick(pt, d, i)})
+        .on("contextmenu",function(d,i){pt = d3.select(this); keypoint_mouseclick(pt, d, i, true)})
 
 
         return svg;
@@ -231,6 +289,18 @@ function draw_keypoints()
   scatter(data.kps_tgt.data, svg); // right image
 }
 
+function update_alpha()
+{
+  let w = document.getElementById('attRange').value
+
+  d3.selectAll("line")
+    .style("stroke", function(d){ 
+                            pt = d3.select(this);
+                            return pt.attr('rgba') + 
+                            (Math.exp(pt.attr('val') * w) / Math.exp(w)).toString() 
+                            + ")"
+                          })
+}
 /*
 function hexToRGB(hex, alpha) {
     var r = parseInt(hex.slice(1, 3), 16),

@@ -318,6 +318,29 @@ function show_hide_kps(e){
     } 
 }
 
+function attention_check(e){
+
+    if(e.checked){
+        document.getElementById('attRange').disabled = false;
+    }
+    else{
+        document.getElementById('attRange').disabled = true;     
+    } 
+}
+
+function update_sample(v)
+{
+    var dist_mat_paths = 
+                {
+                    1: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__GEOBIT.dist",
+                    2: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__DEAL.dist",
+                    3: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__FREAK.dist"
+                }
+
+    document.getElementById("f5").value = dist_mat_paths[v]
+    document.getElementById('btnLoad').click();
+}
+
 //document.getElementById('text1').style.visibility='hidden';
 
 // Main code
@@ -333,6 +356,13 @@ window.addEventListener("load", () => {
     document.getElementById('url_rd').click();
     document.getElementById('btnLoad').click();
     document.getElementById('hideKps').checked = false;
+    document.getElementById('attMap').checked = false;
+    document.getElementById('attRange').disabled = true;
+
+    d3.select("#attRange").on("input", function() {
+        update_alpha();
+    });
+
     logger.reset();
     logger.log("To load sample data, just click the load button.");
     logger.log("To view the CSV specification so you can load your own matches, click the \"CSV Specs.\" button.");

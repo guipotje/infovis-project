@@ -31,9 +31,15 @@
             </div>
             -->
             <div id="graph" style="font-family: 'Courier New', monospace;">
-                Histogram Bins:
+                    <button id="btnRefresh"class="button2" style="margin-left: 30%; width: 40%" onclick="draw()"><i class="fa fa-refresh"></i> &nbsp; Refresh Visualization</button>
+                    <br>
+                    <input type="checkbox" id="attMap" name="attMap" onclick="attention_check(this)">
+                    <label>Keypoint Attention</label>
+                    <input style="vertical-align: middle;" type="range" list="tickmarks" value="3" min="1" max="30"  id="attRange">      
+                    <br> Histogram Bins:         
                     <input style="vertical-align: middle;" type="range" list="tickmarks" value="2" min="0" max="5"  id="nBin">
-                    <button id="btnRefresh"class="button2" style="margin-left: 30%; width: 40%" onclick="draw()"><i class="fa fa-refresh"></i> &nbsp; Refresh Visualization</button> 
+
+
             </div>
             <div id="correlation"></div>
 
@@ -61,7 +67,13 @@
                 <tr>
                 <td>Distance matrix path: &nbsp; &nbsp; &nbsp;</td>
                 <td> <input id="f5" type='text' style="width: 70%;"  value="https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__GEOBIT.dist"/> </td>
-                <td>   </td>
+                <td>   
+                    <select name="cbb" id = "cbb" onchange="update_sample(this.value);">
+                        <option value="1">Sample Data: Bag - Algorithm: GeoBit </option> 
+                        <option value="2">Sample Data: Bag - Algorithm: DEAL </option> 
+                        <option value="3">Sample Data: Bag - Algorithm: FREAK </option> 
+                    </select>                    
+                </td>
                 </tr>                
             </table>
 
