@@ -344,6 +344,10 @@ function update_sample(v)
 
     var ref_data_dict =
         {
+            1: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master",
+            2: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master",
+            3: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master",
+            4: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master",
             5: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master",
             6: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master",
             7: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master",
@@ -351,6 +355,10 @@ function update_sample(v)
         }
     var tgt_data_dict =
         {
+            1: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_4",
+            2: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_4",
+            3: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_4",
+            4: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_4",
             5: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_12",
             6: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_12",
             7: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_12",
@@ -358,16 +366,13 @@ function update_sample(v)
         }
 
 
-    if(v <=4)
-        document.getElementById("f5").value = dist_mat_dict[v]
-    else if(v > 4)
-    {
+
         document.getElementById("f5").value = dist_mat_dict[v] 
         document.getElementById("f1").value = ref_data_dict[v] + "-rgb.png"
         document.getElementById("f2").value = tgt_data_dict[v] + "-rgb.png"
         document.getElementById("f3").value = ref_data_dict[v] + ".sift"
         document.getElementById("f4").value = tgt_data_dict[v] + ".sift"
-    }
+    
 
     document.getElementById('btnLoad').click();
 }
