@@ -68,9 +68,9 @@
     Tooltip
       .html(
             "NN: " + nn.toFixed(2).toString() + "&nbsp; 2nd-NN: " + nn2.toFixed(2).toString()  +
-            "<br> NN-ratio: " + ratio.toFixed(2).toString() )
+            "<br> NN-ratio: " + ratio.toFixed(2).toString() + "<br> Click & Drag to select" )
       .style("left", (x-250) + "px")
-      .style("top", (y-60) + "px")
+      .style("top", (y-80) + "px")
       .style("z-index","4");
 
   }
