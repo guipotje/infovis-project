@@ -330,14 +330,45 @@ function attention_check(e){
 
 function update_sample(v)
 {
-    var dist_mat_paths = 
-                {
-                    1: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__GEOBIT.dist",
-                    2: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__DEAL.dist",
-                    3: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__FREAK.dist"
-                }
+    var dist_mat_dict = 
+        {
+            1: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__GEOBIT.dist",
+            2: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__DEAL.dist",
+            3: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__TFEAT.dist",
+            4: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__SIFT.dist",
+            5: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__GEOBIT.dist",
+            6: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__DEAL.dist",
+            7: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__TFEAT.dist",
+            8: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__SIFT.dist"
+        }
 
-    document.getElementById("f5").value = dist_mat_paths[v]
+    var ref_data_dict =
+        {
+            5: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master",
+            6: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master",
+            7: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master",
+            8: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master"
+        }
+    var tgt_data_dict =
+        {
+            5: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_12",
+            6: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_12",
+            7: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_12",
+            8: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_12"
+        }
+
+
+    if(v <=4)
+        document.getElementById("f5").value = dist_mat_dict[v]
+    else if(v > 4)
+    {
+        document.getElementById("f5").value = dist_mat_dict[v] 
+        document.getElementById("f1").value = ref_data_dict[v] + ".png"
+        document.getElementById("f2").value = ref_data_dict[v] + ".sift"
+        document.getElementById("f3").value = tgt_data_dict[v] + ".png"
+        document.getElementById("f4").value = tgt_data_dict[v] + ".sift"
+    }
+
     document.getElementById('btnLoad').click();
 }
 
