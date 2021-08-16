@@ -113,7 +113,7 @@ function plot_histogram(dists){
         d3.selectAll(".brush").call(brush.move, null);
 
         d3.select(this)
-        .style("fill", "gold")
+        .style("fill", "orange")
         .style("stroke", "black")
         .style("stroke-width", "2px")
         .attr("clicked", "true")

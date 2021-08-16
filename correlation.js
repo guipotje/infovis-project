@@ -176,6 +176,11 @@
     const [[x0, y0], [x1, y1]] = selection;
     //console.log(x0, y0)
 
+    function filter_brush(d){
+      return x(d.nn) > x0  && x(d.nn) < x1 &&
+              y(d.ratio) > y0 && y(d.ratio) < y1;
+    }
+
     d3.selectAll(".hist_rect")
         .style("fill", "rgb(40, 0, 200)")
         .style("stroke", "none")
@@ -186,6 +191,9 @@
     {
       d3.selectAll(".c_scatter")
       .style("visibility", "visible")
+
+      d3.selectAll(".c_correlation")
+      .style("fill", "rgb(185, 0, 0)")
     }
 
     else{
@@ -193,11 +201,15 @@
         .style("visibility", "hidden")
 
         d3.selectAll(".c_scatter")
-        .filter(function(d) {
-        return x(d.nn) > x0  && x(d.nn) < x1 &&
-                y(d.ratio) > y0 && y(d.ratio) < y1;
-      })
-      .style("visibility","visible")
+        .filter(filter_brush)
+        .style("visibility","visible")
+
+        d3.selectAll(".c_correlation")
+          .style("fill", "rgb(185, 0, 0)")
+
+        d3.selectAll(".c_correlation")
+          .filter(filter_brush)
+          .style("fill","orange")
     }
 
 
