@@ -363,9 +363,9 @@ function update_sample(v)
     else if(v > 4)
     {
         document.getElementById("f5").value = dist_mat_dict[v] 
-        document.getElementById("f1").value = ref_data_dict[v] + ".png"
-        document.getElementById("f2").value = ref_data_dict[v] + ".sift"
-        document.getElementById("f3").value = tgt_data_dict[v] + ".png"
+        document.getElementById("f1").value = ref_data_dict[v] + "-rgb.png"
+        document.getElementById("f2").value = tgt_data_dict[v] + "-rgb.png"
+        document.getElementById("f3").value = ref_data_dict[v] + ".sift"
         document.getElementById("f4").value = tgt_data_dict[v] + ".sift"
     }
 
