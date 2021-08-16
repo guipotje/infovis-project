@@ -338,7 +338,7 @@ function update_sample(v)
             4: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/bag/cloud_master__cloud_4__SIFT.dist",
             5: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__GEOBIT.dist",
             6: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__DEAL.dist",
-            7: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__TFEAT.dist",
+            7: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__TFeat.dist",
             8: "https://raw.githubusercontent.com/guipotje/infovis-project/main/sample/blanket/cloud_master__cloud_12__SIFT.dist"
         }
 
