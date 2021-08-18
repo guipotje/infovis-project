@@ -269,6 +269,12 @@ function check_radiobuttons(b){
 function show_csv_info()
 {
     logger.txtbox.style.height = "420px";
+    logger.log("")
+    logger.log("This is a tool designed for visualizing the output of image matching algorithms based on detection and description of local keypoints.")
+    logger.log("Those algorithms first detect interest point regions in the two images and then create a descriptor vector for each keypoint. The descriptors take "+
+                "into consideration the local pixel intensities around each keypoint to compute a distinctive descriptor.");
+    logger.log("Finally, those descriptors are matched by finding the nearest neighbor in the other image using a vector norm. One can compute the "+
+                "the distance matrix, containing all possible pairwise distances for a set of descriptors A, B, extracted from images img_A, img_B respectively.")
     logger.log("");
     logger.log("KeyPoints CSV specification:");
     logger.log("Each line contains a keypoint in the form");
@@ -438,7 +444,7 @@ window.addEventListener("load", () => {
 
     logger.reset();
     logger.log("To load sample data, just click the load button.");
-    logger.log("To view the CSV specification so you can load your own matches, click the \"CSV Specs.\" button.");
+    logger.log("For more information, or CSV specification so you can load your own matches, click the \"More Info.\" button.");
     logger.log("You can load from remote URL, e.g, a link from github or load from local files.");
 
     //var sensor = new ResizeObserver(function(){resize_canvas();}).observe(document.getElementById('div_loader'));
