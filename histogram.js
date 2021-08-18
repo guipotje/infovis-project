@@ -146,6 +146,7 @@ function plot_histogram(dists){
     var bins = histogram(dists);
     //console.log(x.ticks(nBins))
     //console.log(nBins)
+    //console.log(bins)
   
   
     // Y axis: update now that we know the domain
@@ -171,9 +172,9 @@ function plot_histogram(dists){
         .on("click", histogram_filter)
         .transition() // and apply changes to all of them
         .duration(1000)
-          .attr("x", 1)
+          .attr("x", 0)
           .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-          .attr("width", function(d) { return x(d.x1) - x(d.x0) -2 ; })
+          .attr("width", function(d) { return Math.max(x(d.x1) - x(d.x0) - 2, 0); })
           .attr("height", function(d) { return height - y(d.length); })
           .attr("clicked", "false")
           .style("fill", "rgb(40, 0, 200)")
