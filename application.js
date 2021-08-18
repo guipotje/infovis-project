@@ -273,8 +273,9 @@ function show_csv_info()
     logger.log("This is a tool designed for visualizing the output of image matching algorithms based on detection and description of local keypoints.")
     logger.log("Those algorithms first detect interest point regions in the two images and then create a descriptor vector for each keypoint. The descriptors take "+
                 "into consideration the local pixel intensities around each keypoint to compute a distinctive descriptor.");
-    logger.log("Finally, those descriptors are matched by finding the nearest neighbor in the other image using a vector norm. One can compute the "+
-                "the distance matrix, containing all possible pairwise distances for a set of descriptors A, B, extracted from images img_A, img_B respectively.")
+    logger.log("Finally, those descriptors are matched by finding their nearest neighbor (NN) in the other image using a vector norm. One can compute the "+
+                "the distance matrix, containing all possible pairwise distances for a set of descriptors A, B, extracted from images img_A, img_B respectively." +
+                "The NN distance and NN-ratio (the ratio between the first and second NN in the distance matrix) are good estimators of the confidence of a match.")
     logger.log("");
     logger.log("KeyPoints CSV specification:");
     logger.log("Each line contains a keypoint in the form");
